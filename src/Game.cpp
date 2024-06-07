@@ -25,6 +25,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
         window = SDL_CreateWindow(title, xpos, ypos, width, height, flag);
         renderer = SDL_CreateRenderer(window, -1, 0);
 
+        SDL_SetRenderDrawBlendMode(Game::renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
         Running = true;
@@ -47,10 +48,10 @@ void Game::update()
     if(m_pressed)
     {
         map->draw_mouse(event.button, m_pos);
-
+        map->setup();
     }  
 
-    std::cout << map->searchable() << " : " << Algorithm::solved << "\n";
+    //std::cout << map->searchable() << " : " << Algorithm::solved << "\n";
     map->update(m_pos);
 
     // Search
@@ -108,7 +109,10 @@ void Game::handleEvent()
         case SDL_KEYDOWN:
             map->draw_keyb(event.key.keysym.sym, m_pos);
             if(map->searchable())
+            {
+                map->setup();
                 Algorithm::Setup(map);
+            } 
             break;
 
         default:
