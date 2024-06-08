@@ -47,5 +47,6 @@
         "istream": "cpp",
         "sstream": "cpp",
         "optional": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

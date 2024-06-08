@@ -109,10 +109,11 @@ void Game::handleEvent()
         case SDL_KEYDOWN:
             map->draw_keyb(event.key.keysym.sym, m_pos);
             if(map->searchable())
-            {
                 map->setup();
+
+            if(event.key.keysym.sym == SDLK_RETURN)
                 Algorithm::Setup(map);
-            } 
+
             break;
 
         default:
