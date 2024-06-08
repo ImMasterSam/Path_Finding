@@ -132,6 +132,8 @@ void Map::draw_mouse(SDL_MouseButtonEvent &b, SDL_Rect &m_pos)
         return;
     }
 
+    setup();
+
     switch(b.button)
     {   
 

@@ -21,12 +21,18 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     }
 
     if(SDL_Init(SDL_INIT_EVERYTHING) == 0)
-    {
+    {   
+        // Create
         window = SDL_CreateWindow(title, xpos, ypos, width, height, flag);
         renderer = SDL_CreateRenderer(window, -1, 0);
 
+        // Render Settings
         SDL_SetRenderDrawBlendMode(Game::renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
+        // Other Seettings
+        
+
 
         Running = true;
     }
@@ -48,9 +54,8 @@ void Game::update()
     if(m_pressed)
     {
         map->draw_mouse(event.button, m_pos);
-        map->setup();
     }  
-    
+
     map->update(m_pos);
 
     // Search
