@@ -36,27 +36,33 @@ void Map::render_map()
         {   
 
             switch(cells[i][j]){
-
+                
+                // SPACE
                 case 0:
                     SDL_SetRenderDrawColor(Game::renderer, 30, 30, 30, 255);
                     break;
                 
+                // WALL
                 case 1:
                     SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
                     break;
                 
+                // START
                 case 2:
                     SDL_SetRenderDrawColor(Game::renderer, 0, 230, 0, 255);
                     break;
 
+                // END
                 case 3:
                     SDL_SetRenderDrawColor(Game::renderer, 230, 0, 0, 255);
                     break;
 
+                // VISITED
                 case 5:
                     SDL_SetRenderDrawColor(Game::renderer, 0, 0, 150, 255);
                     break;
                 
+                // FINAL PATH
                 case 100:
                     SDL_SetRenderDrawColor(Game::renderer, 230, 230, 0, 255);
                     break;
@@ -86,6 +92,9 @@ void Map::render_map()
 
 void Map::setup()
 {
+
+    std::cout << "Map Setup For Search!\n";
+
     for(int i=0;i<40;i++)
     {
         for(int j=0;j<40;j++)
@@ -94,6 +103,23 @@ void Map::setup()
                 cells[i][j] = 0;
         }
     }
+}
+
+void Map::clear()
+{
+
+    std::cout << "Map Cleared!\n";
+
+    sx = sy = ex = ey = -1;
+
+    for(int i=0;i<40;i++)
+    {
+        for(int j=0;j<40;j++)
+        {
+            cells[i][j] = 0;
+        }
+    }
+
 }
 
 void Map::draw_mouse(SDL_MouseButtonEvent &b, SDL_Rect &m_pos)
@@ -135,6 +161,8 @@ void Map::draw_keyb(SDL_Keycode &k, SDL_Rect &m_pos)
     {
         return;
     }
+
+    setup();
 
     switch(k)
     {   

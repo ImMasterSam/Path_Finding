@@ -50,8 +50,7 @@ void Game::update()
         map->draw_mouse(event.button, m_pos);
         map->setup();
     }  
-
-    //std::cout << map->searchable() << " : " << Algorithm::solved << "\n";
+    
     map->update(m_pos);
 
     // Search
@@ -108,11 +107,18 @@ void Game::handleEvent()
 
         case SDL_KEYDOWN:
             map->draw_keyb(event.key.keysym.sym, m_pos);
-            if(map->searchable())
-                map->setup();
 
-            if(event.key.keysym.sym == SDLK_RETURN)
-                Algorithm::Setup(map);
+            switch(event.key.keysym.sym)
+            {
+                case SDLK_RETURN:
+                    Algorithm::Setup(map);
+                    break;
+                case SDLK_ESCAPE:
+                    map->clear();
+                    break;
+                default:
+                    break;
+            }
 
             break;
 

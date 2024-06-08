@@ -24,7 +24,7 @@ void travel(T (&arr)[], int idx)
 void Algorithm::Setup(Map *map)
 {
     
-    std::cout << "Setup!\n";
+    std::cout << "Algoritm::BFS Setup!\n";
 
     for(i=0;i<50;i++)
     {

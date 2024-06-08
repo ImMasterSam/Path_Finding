@@ -20,6 +20,7 @@ class Map
         void update(SDL_Rect &m_pos);
         void render_map();
         void setup();
+        void clear();
 
         // Input Handling
         void draw_mouse(SDL_MouseButtonEvent &b, SDL_Rect &m_pos);
