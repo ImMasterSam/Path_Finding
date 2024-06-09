@@ -127,7 +127,7 @@ void Map::draw_mouse(SDL_MouseButtonEvent &b, SDL_Rect &m_pos)
     int x = m_pos.y / 20;
     int y = m_pos.x / 20;
 
-    if((x<0 && x>=row) && (y<0 && y>=col))
+    if((x<0 || x>=row) || (y<0 || y>=col))
     {
         return;
     }

@@ -22,7 +22,9 @@ void travel(T (&arr)[], int idx)
 }
 
 void Algorithm::Setup(Map *map)
-{
+{   
+
+    if(!map->searchable()) return;
     
     std::cout << "Algoritm::BFS Setup!\n";
 

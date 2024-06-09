@@ -10,6 +10,8 @@ SDL_Texture* TextureManager::LoadTexture(const char *filename){
     tex = SDL_CreateTextureFromSurface(Game::renderer, tempSurface);
     SDL_FreeSurface(tempSurface);
 
+    std::cout << "Loaded: " << filename << "\n";
+
     return tex;
 
 }

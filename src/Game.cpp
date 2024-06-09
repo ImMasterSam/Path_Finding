@@ -1,5 +1,6 @@
 #include <Game.h>
 #include <Map.h>
+#include <Button.h>
 #include <Text.h>
 #include <Algorithm.h>
 
@@ -7,6 +8,7 @@ int Game::Game_Tick = 0;
 SDL_Renderer *Game::renderer = nullptr;
 
 Map *map = nullptr;
+Button *start = nullptr;
 
 Game::Game() {}
 Game::~Game() {}
@@ -38,6 +40,8 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     }
 
     map = new Map();
+    start = new Button();
+    start->init("picture/start_button", 820, 730, 40, 15, 4);
 
     reset();
 
@@ -57,6 +61,7 @@ void Game::update()
     }  
 
     map->update(m_pos);
+    start->update(&m_pos);
 
     // Search
     if(!Algorithm::solved)
@@ -76,6 +81,9 @@ void Game::render()
 
     //Map
     map->render_map();
+
+    //Button
+    start->render();
 
     SDL_RenderPresent(renderer);
 }
@@ -105,6 +113,8 @@ void Game::handleEvent()
         
         case SDL_MOUSEBUTTONDOWN:
             m_pressed = true;
+            if(start->ispointed())
+                Algorithm::Setup(map);
             break;
         case SDL_MOUSEBUTTONUP:
             m_pressed = false;
