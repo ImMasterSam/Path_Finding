@@ -1,4 +1,6 @@
 # 路徑搜尋 Path Finding
 
-演算法: BFS
+### 演算法:
+- BFS
+- DFS
 
