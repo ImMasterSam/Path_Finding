@@ -13,6 +13,16 @@ class Map
 
         Map();
         ~Map();
+
+        enum
+        {
+            SPACE,
+            WALL,
+            START,
+            END,
+            VISITED,
+            PATH,
+        };
         
         static void init();
 

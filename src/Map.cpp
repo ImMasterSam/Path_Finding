@@ -38,32 +38,32 @@ void Map::render_map()
             switch(cells[i][j]){
                 
                 // SPACE
-                case 0:
+                case SPACE:
                     SDL_SetRenderDrawColor(Game::renderer, 30, 30, 30, 255);
                     break;
                 
                 // WALL
-                case 1:
+                case WALL:
                     SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
                     break;
                 
                 // START
-                case 2:
+                case START:
                     SDL_SetRenderDrawColor(Game::renderer, 0, 230, 0, 255);
                     break;
 
                 // END
-                case 3:
+                case END:
                     SDL_SetRenderDrawColor(Game::renderer, 230, 0, 0, 255);
                     break;
 
                 // VISITED
-                case 5:
+                case VISITED:
                     SDL_SetRenderDrawColor(Game::renderer, 0, 0, 150, 255);
                     break;
                 
                 // FINAL PATH
-                case 100:
+                case PATH:
                     SDL_SetRenderDrawColor(Game::renderer, 230, 230, 0, 255);
                     break;
 
@@ -99,8 +99,8 @@ void Map::setup()
     {
         for(int j=0;j<40;j++)
         {
-            if(cells[i][j] == 5 || cells[i][j] == 100)
-                cells[i][j] = 0;
+            if(cells[i][j] == VISITED || cells[i][j] == PATH)
+                cells[i][j] = SPACE;
         }
     }
 }
@@ -139,13 +139,13 @@ void Map::draw_mouse(SDL_MouseButtonEvent &b, SDL_Rect &m_pos)
 
         case SDL_BUTTON_LEFT:
             //std::cout << "draw\n";
-            cells[x][y] = 1;
+            cells[x][y] = WALL;
             break;
 
         case SDL_BUTTON_RIGHT:
         case SDL_BUTTON_X1:
             //std::cout << "clear\n";
-            cells[x][y] = 0;
+            cells[x][y] = SPACE;
             break;
         
         default:
@@ -172,8 +172,8 @@ void Map::draw_keyb(SDL_Keycode &k, SDL_Rect &m_pos)
         case SDLK_s:
 
             if(sx != -1 && sy != -1)
-                cells[sx][sy] = 0;
-            cells[x][y] = 2;
+                cells[sx][sy] = WALL;
+            cells[x][y] = START;
 
             sx = x;
             sy = y;
@@ -183,8 +183,8 @@ void Map::draw_keyb(SDL_Keycode &k, SDL_Rect &m_pos)
         case SDLK_e:
 
             if(ex != -1 && ey != -1)
-                cells[ex][ey] = 0;
-            cells[x][y] = 3;
+                cells[ex][ey] = SPACE;
+            cells[x][y] = END;
 
             ex = x;
             ey = y;

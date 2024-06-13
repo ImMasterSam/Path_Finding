@@ -15,7 +15,7 @@ void travel(T (&arr)[], int idx)
 
     while(cur.last != -1)
     {   
-        Map::cells[cur.x][cur.y] = 100;
+        Map::cells[cur.x][cur.y] = Map::PATH;
         cur = arr[cur.last];
     }
 }
@@ -53,8 +53,8 @@ void BFS::Search(Map *map)
     {
         cur = queue[i];
         
-        if(map->cells[cur.x][cur.y] == 0)
-            map->cells[cur.x][cur.y] = 5;
+        if(map->cells[cur.x][cur.y] == Map::SPACE)
+            map->cells[cur.x][cur.y] = Map::VISITED;
 
         if(cur.x == map->ex && cur.y == map->ey)
         {   
@@ -74,7 +74,7 @@ void BFS::Search(Map *map)
 
             if((nxt.x>=0&&nxt.x<map->row) && (nxt.y>=0&&nxt.y<map->col))
             {
-                if(!vis[nxt.x][nxt.y] && map->cells[nxt.x][nxt.y] != 1)
+                if(!vis[nxt.x][nxt.y] && map->cells[nxt.x][nxt.y] != Map::WALL)
                 {
                     vis[nxt.x][nxt.y] = true;
                     queue[j++] = nxt;
