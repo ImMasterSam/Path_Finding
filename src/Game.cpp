@@ -2,7 +2,7 @@
 #include <Map.h>
 #include <Button.h>
 #include <Text.h>
-#include <Algorithm.h>
+#include <AlgorithmManager.h>
 
 int Game::Game_Tick = 0;
 SDL_Renderer *Game::renderer = nullptr;
@@ -64,8 +64,7 @@ void Game::update()
     start->update(&m_pos);
 
     // Search
-    if(!Algorithm::solved)
-        Algorithm::BFS(map);
+    AlgorithmManager::update(map);
 
     Game_Tick++;
     //std::cout << m_pressed << "\n";
@@ -114,7 +113,7 @@ void Game::handleEvent()
         case SDL_MOUSEBUTTONDOWN:
             m_pressed = true;
             if(start->ispointed())
-                Algorithm::Setup(map);
+                AlgorithmManager::StartSearch(map);
             break;
         case SDL_MOUSEBUTTONUP:
             m_pressed = false;
@@ -126,7 +125,7 @@ void Game::handleEvent()
             switch(event.key.keysym.sym)
             {
                 case SDLK_RETURN:
-                    Algorithm::Setup(map);
+                    AlgorithmManager::StartSearch(map);
                     break;
                 case SDLK_ESCAPE:
                     map->clear();

@@ -1,8 +1,7 @@
 #pragma once
 
-#include <Game.h>
+#include <AlgorithmManager.h>
 #include <Map.h>
-#include <vector>
 
 struct node
 {
@@ -10,9 +9,8 @@ struct node
     int last;
 };
 
-class Algorithm
+class BFS
 {
-
     private:
 
         static node cur, nxt;
@@ -24,10 +22,7 @@ class Algorithm
     public:
 
         static bool solved;
-
         static void Setup(Map *map);
-
-        static void BFS(Map *map);
-        //static void DFS(Map *map);
+        static void Search(Map *map);
 
 };

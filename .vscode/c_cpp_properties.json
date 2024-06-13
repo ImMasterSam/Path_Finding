@@ -5,6 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/headers",
+                "${workspaceFolder}/headers/Algorithms",
                 "${workspaceFolder}/picture",
                 "C:/Users/User/Documents/Dev/SDL2/include"
             ],
