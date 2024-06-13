@@ -20,8 +20,7 @@ class BFS
         static node queue[2000];
 
     public:
-
-        static bool solved;
+    
         static void Setup(Map *map);
         static void Search(Map *map);
 

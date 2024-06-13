@@ -120,6 +120,8 @@ void Game::handleEvent()
             break;
 
         case SDL_KEYDOWN:
+            if(AlgorithmManager::isSearching()) break;
+
             map->draw_keyb(event.key.keysym.sym, m_pos);
 
             switch(event.key.keysym.sym)

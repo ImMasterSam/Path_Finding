@@ -5,6 +5,9 @@
 #include <vector>
 
 #include <BFS.h>
+#include <DFS.h>
+
+const int dir[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 
 class AlgorithmManager
 {
@@ -13,7 +16,8 @@ class AlgorithmManager
 
         enum
         {
-            BFS
+            BFS,
+            DFS
         };
 
         static int currentAlg;
@@ -26,6 +30,7 @@ class AlgorithmManager
         static void update(Map *map);
 
         static void Solved() { solved = true; searching = false; }
+        static bool isSearching() { return searching; }
 
         //static void DFS(Map *map);
 

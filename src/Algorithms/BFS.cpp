@@ -1,12 +1,9 @@
 #include <BFS.h>
 
-bool BFS::solved = true;
 node BFS::cur, BFS::nxt;
 int BFS::i, BFS::j;
 bool BFS::vis[50][50];
 node BFS::queue[2000];
-
-int dir[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 
 template<typename T>
 void travel(T (&arr)[], int idx)
@@ -42,7 +39,6 @@ void BFS::Setup(Map *map)
 
     i = j = 0;
     queue[j++] = cur;
-    solved = false;
 
 }
 
@@ -58,7 +54,7 @@ void BFS::Search(Map *map)
 
         if(cur.x == map->ex && cur.y == map->ey)
         {   
-            std::cout << "BFS Search Complete.";
+            std::cout << "BFS Search Complete.\n";
             travel<node>(queue, cur.last);
             AlgorithmManager::Solved();
             return;

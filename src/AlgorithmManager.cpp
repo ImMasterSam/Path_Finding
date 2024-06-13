@@ -20,6 +20,9 @@ void AlgorithmManager::StartSearch(Map *map)
         case BFS:
             BFS::Setup(map);
             break;
+        case DFS:
+            DFS::Setup(map);
+            break;
 
     }
 
@@ -36,6 +39,9 @@ void AlgorithmManager::update(Map *map)
         {
             case BFS:
                 BFS::Search(map);
+                break;
+            case DFS:
+                DFS::Search(map);
                 break;
         }
     }
