@@ -1,8 +1,17 @@
 #include <AlgorithmManager.h>
 
+std::vector<SDL_Point> AlgorithmManager::path;
 int AlgorithmManager::currentAlg =  BFS;
 bool AlgorithmManager::searching = false;
 bool AlgorithmManager::solved = true;
+
+void AlgorithmManager::displayPath()
+{
+    for(SDL_Point &p : path)
+    {
+        Map::cells[p.x][p.y] = Map::PATH;
+    }
+}
 
 void AlgorithmManager::StartSearch(Map *map)
 {
@@ -31,7 +40,7 @@ void AlgorithmManager::StartSearch(Map *map)
 void AlgorithmManager::update(Map *map)
 {
 
-    if(solved)  return;
+    displayPath();
     
     if(searching)
     {

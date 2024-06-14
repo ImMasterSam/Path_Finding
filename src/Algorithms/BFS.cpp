@@ -1,4 +1,5 @@
 #include <BFS.h>
+#include <vector>
 
 node BFS::cur, BFS::nxt;
 int BFS::i, BFS::j;
@@ -8,13 +9,17 @@ node BFS::queue[2000];
 template<typename T>
 void travel(T (&arr)[], int idx)
 {   
+    std::vector<SDL_Point> path;
     node cur = arr[idx];
 
     while(cur.last != -1)
     {   
-        Map::cells[cur.x][cur.y] = Map::PATH;
+        SDL_Point p = {cur.x, cur.y};
+        path.push_back(p);
         cur = arr[cur.last];
     }
+
+    AlgorithmManager::setPath(path);
 }
 
 void BFS::Setup(Map *map)

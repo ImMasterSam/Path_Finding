@@ -20,6 +20,9 @@ class AlgorithmManager
             DFS
         };
 
+        static std::vector<SDL_Point> path;
+        static void displayPath();
+
         static int currentAlg;
         static bool searching;
         static bool solved;
@@ -29,10 +32,11 @@ class AlgorithmManager
         static void StartSearch(Map *map);
         static void update(Map *map);
 
+        static void unSolved() { solved = false;path.clear(); }
         static void Solved() { solved = true; searching = false; }
         static bool isSearching() { return searching; }
 
-        //static void DFS(Map *map);
+        static void setPath(std::vector<SDL_Point> p) { path = p; }
 
 };
 

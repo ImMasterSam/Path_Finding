@@ -6,7 +6,7 @@ bool DFS::vis[40][40];
 
 void DFS::travel(Map *map)
 {
-
+    
     for(SDL_Point &p : path)
     {
         if((p.x == map->sx && p.y == map->sy) || (p.x == map->ex && p.y == map->ey))
@@ -39,7 +39,7 @@ void DFS::Setup(Map *map)
 }
 
 void DFS::Search(Map *map)
-{   
+{       
 
     for(int i=0;i<4;i++)
     {
@@ -51,7 +51,7 @@ void DFS::Search(Map *map)
 
         if(nxtPos.x == map->ex && nxtPos.y == map->ey)
         {   
-            travel(map);
+            //travel(map);
             AlgorithmManager::Solved();
             std::cout << "DFS Search Complete.\n";
             return;
@@ -63,6 +63,9 @@ void DFS::Search(Map *map)
             map->cells[nxtPos.x][nxtPos.y] = Map::VISITED;
             path.push_back(nxtPos);
             curPos = nxtPos;
+
+            AlgorithmManager::setPath(path);
+
             return;
         }
 
@@ -70,6 +73,9 @@ void DFS::Search(Map *map)
     
     // else
     path.pop_back();
+    map->cells[curPos.x][curPos.y] = Map::VISITED;
     curPos = path[path.size()-1];
+
+    AlgorithmManager::setPath(path);
 
 }

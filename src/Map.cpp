@@ -1,4 +1,5 @@
 #include <Map.h>
+#include <AlgorithmManager.h>
 
 int Map::cells[40][40] = {0};
 
@@ -94,6 +95,8 @@ void Map::setup()
 {
 
     std::cout << "Map Setup For Search!\n";
+
+    AlgorithmManager::unSolved();
 
     for(int i=0;i<40;i++)
     {
