@@ -1,4 +1,6 @@
 #include <Game.h>
+#include <chrono>
+typedef std::chrono::high_resolution_clock Clock;
 
 Game *game = nullptr;
 
@@ -15,15 +17,17 @@ int main(int argc, char *argv[]){
 
     while(game->isRunning())
     {
-
         FrameStart = SDL_GetTicks();
-        
+        auto ProcessStart = Clock::now();
+
         game->update();
         game->render();
         game->handleEvent();
 
+        auto ProcessEnd = Clock::now();
+        //std::cout << "Processing Time -> " << std::chrono::duration_cast<std::chrono::microseconds>(ProcessEnd - ProcessStart).count() << " us \r";
+
         FrameTime = SDL_GetTicks() - FrameStart;
-        //std::cout << "Processing Time -> " << FrameTime << "\n";
 
         if(FrameDelay > FrameTime){
 

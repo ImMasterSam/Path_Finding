@@ -23,10 +23,8 @@ void Map::update(SDL_Rect &pos)
     int x = pos.y / 20;
     int y = pos.x / 20;
 
-    m_pos.x = x;
-    m_pos.y = y;
-
-
+    m_pos.x = (x<0 || x>=row) ? -1 : x;
+    m_pos.y = (y<0 || y>=col) ? -1 : y;
     
 }
 
@@ -83,11 +81,32 @@ void Map::render_map()
     }
 
     // Mouse Position
-    if((m_pos.x>=0 && m_pos.x<row) && (m_pos.y>=0 && m_pos.y<col))
+    if(m_pos.x != -1 && m_pos.y != -1 )
     {
         Cell.y = m_pos.x*20 + 1;
         Cell.x = m_pos.y*20 + 1;
-        SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 50);
+
+        switch(draw_type)
+        {
+            // wall
+            case 0:
+                SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 50);
+                break;
+            // start
+            case 1:
+                SDL_SetRenderDrawColor(Game::renderer, 0, 255, 0, 50);
+                break;
+            // end
+            case 2:
+                SDL_SetRenderDrawColor(Game::renderer, 255, 0, 0, 50);
+                break;
+
+            default:
+                SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 50);
+                break;
+        }
+
+        
         SDL_RenderFillRect(Game::renderer, &Cell); 
     }
 
@@ -139,6 +158,13 @@ void Map::handleEvent(SDL_Event *event)
             draw = false;
             break;
 
+        case SDL_MOUSEWHEEL:
+            if(event->wheel.y>0)
+                draw_type = (draw_type + 1) % 3;
+            else if(event->wheel.y<0)
+                draw_type = (draw_type + 2) % 3;
+            break;
+
         case SDL_KEYDOWN:
             if(AlgorithmManager::isSearching()) break;
 
@@ -167,7 +193,7 @@ void Map::draw_mouse(SDL_MouseButtonEvent &b, SDL_Point &m_pos)
     int x = m_pos.x;
     int y = m_pos.y;
 
-    if((x<0 || x>=row) || (y<0 || y>=col))
+    if(x == -1 || y == -1)
     {
         return;
     }
@@ -179,13 +205,41 @@ void Map::draw_mouse(SDL_MouseButtonEvent &b, SDL_Point &m_pos)
 
         case SDL_BUTTON_LEFT:
             //std::cout << "draw\n";
-            cells[x][y] = WALL;
+            switch(draw_type)
+            {   
+                // wall
+                case 0:
+                    cells[x][y] = WALL;
+                    break;
+                // start
+                case 1:
+                    if(sx != -1 || sy != -1)
+                        cells[sx][sy] = SPACE;
+                    cells[x][y] = START;
+                    sx = x; sy = y;
+                    break;
+                // end
+                case 2:
+                    if(ex != -1 || ey != -1)
+                        cells[ex][ey] = SPACE;
+                    cells[x][y] = END;
+                    ex = x; ey = y;
+                    break;
+
+                default:
+                    break;
+            }
             break;
 
         case SDL_BUTTON_RIGHT:
         case SDL_BUTTON_X1:
             //std::cout << "clear\n";
             cells[x][y] = SPACE;
+            if(x == sx && y == sy)
+                sx = sy = -1;
+            if(x == ex && y == ey)
+                ex = ey = -1;
+
             break;
         
         default:
@@ -199,7 +253,7 @@ void Map::draw_keyb(SDL_Keycode &k, SDL_Point &m_pos)
     int x = m_pos.x;
     int y = m_pos.y;
 
-    if((x<0 && x>=row) && (y<0 && y>=col))
+    if(x == -1 || y == -1)
     {
         return;
     }
@@ -212,7 +266,7 @@ void Map::draw_keyb(SDL_Keycode &k, SDL_Point &m_pos)
         case SDLK_s:
 
             if(sx != -1 && sy != -1)
-                cells[sx][sy] = WALL;
+                cells[sx][sy] = SPACE;
             cells[x][y] = START;
 
             sx = x;
