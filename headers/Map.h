@@ -9,6 +9,8 @@ class Map
         SDL_Rect Cell = {1, 1, 18, 18};
         SDL_Point m_pos = {-1, -1};
 
+        bool draw = false;
+
     public:
 
         Map();
@@ -33,8 +35,9 @@ class Map
         void clear();
 
         // Input Handling
-        void draw_mouse(SDL_MouseButtonEvent &b, SDL_Rect &m_pos);
-        void draw_keyb(SDL_Keycode &k, SDL_Rect &m_pos);
+        void handleEvent(SDL_Event *event);
+        void draw_mouse(SDL_MouseButtonEvent &b, SDL_Point &m_pos);
+        void draw_keyb(SDL_Keycode &k, SDL_Point &m_pos);
         
         bool searchable() { return sx!=-1 && sy!=-1 && ex!=-1 && ey != -1; }
 

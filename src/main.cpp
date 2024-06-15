@@ -23,6 +23,7 @@ int main(int argc, char *argv[]){
         game->handleEvent();
 
         FrameTime = SDL_GetTicks() - FrameStart;
+        //std::cout << "Processing Time -> " << FrameTime << "\n";
 
         if(FrameDelay > FrameTime){
 

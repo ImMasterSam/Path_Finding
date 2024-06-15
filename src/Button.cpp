@@ -1,4 +1,5 @@
 #include <Button.h>
+#include <AlgorithmManager.h>
 
 Button::Button() {}
 Button::~Button() {}
@@ -46,5 +47,23 @@ bool Button::ispointed()
         return true;
     else
         return false;
+
+}
+
+void Button::handleEvent(SDL_Event *event, Map *map)
+{
+
+    switch(event->type)
+    {
+        case SDL_MOUSEBUTTONDOWN:
+            if(ispointed())
+                AlgorithmManager::StartSearch(map);
+            else
+                return;
+
+        default:
+            return;
+
+    }
 
 }

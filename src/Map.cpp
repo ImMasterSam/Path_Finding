@@ -25,6 +25,8 @@ void Map::update(SDL_Rect &pos)
 
     m_pos.x = x;
     m_pos.y = y;
+
+
     
 }
 
@@ -94,8 +96,6 @@ void Map::render_map()
 void Map::setup()
 {
 
-    std::cout << "Map Setup For Search!\n";
-
     AlgorithmManager::unSolved();
 
     for(int i=0;i<40;i++)
@@ -125,10 +125,47 @@ void Map::clear()
 
 }
 
-void Map::draw_mouse(SDL_MouseButtonEvent &b, SDL_Rect &m_pos)
+void Map::handleEvent(SDL_Event *event)
 {   
-    int x = m_pos.y / 20;
-    int y = m_pos.x / 20;
+
+    draw_mouse(event->button, m_pos);
+
+    switch(event->type)
+    {
+        case SDL_MOUSEBUTTONDOWN:
+            draw = true;
+            break;
+        case SDL_MOUSEBUTTONUP:
+            draw = false;
+            break;
+
+        case SDL_KEYDOWN:
+            if(AlgorithmManager::isSearching()) break;
+
+            draw_keyb(event->key.keysym.sym, m_pos);
+
+            switch(event->key.keysym.sym)
+            {
+                case SDLK_RETURN:
+                    AlgorithmManager::StartSearch(this);
+                    break;
+                case SDLK_ESCAPE:
+                    clear();
+                    break;
+                default:
+                    break;
+            }
+    }
+
+}
+
+void Map::draw_mouse(SDL_MouseButtonEvent &b, SDL_Point &m_pos)
+{   
+
+    if(!draw || AlgorithmManager::isSearching()) return;
+
+    int x = m_pos.x;
+    int y = m_pos.y;
 
     if((x<0 || x>=row) || (y<0 || y>=col))
     {
@@ -157,10 +194,10 @@ void Map::draw_mouse(SDL_MouseButtonEvent &b, SDL_Rect &m_pos)
     }
 }
 
-void Map::draw_keyb(SDL_Keycode &k, SDL_Rect &m_pos)
+void Map::draw_keyb(SDL_Keycode &k, SDL_Point &m_pos)
 {   
-    int x = m_pos.y / 20;
-    int y = m_pos.x / 20;
+    int x = m_pos.x;
+    int y = m_pos.y;
 
     if((x<0 && x>=row) && (y<0 && y>=col))
     {

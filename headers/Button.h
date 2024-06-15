@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Game.h>
+#include <Map.h>
 #include <TextureManager.h>
 
 class Button
@@ -27,5 +28,6 @@ class Button
         void render();
 
         bool ispointed();
+        void handleEvent(SDL_Event *event, Map *map);
 
 };

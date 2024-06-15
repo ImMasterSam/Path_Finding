@@ -55,11 +55,6 @@ void Game::reset()
 void Game::update()
 {   
 
-    if(m_pressed)
-    {
-        map->draw_mouse(event.button, m_pos);
-    }  
-
     map->update(m_pos);
     start->update(&m_pos);
 
@@ -99,6 +94,10 @@ void Game::handleEvent()
 {
     SDL_PollEvent(&event);
 
+    // Button Input Handling
+    start->handleEvent(&event, map);
+    map->handleEvent(&event);
+
     switch(event.type)
     {
 
@@ -108,34 +107,6 @@ void Game::handleEvent()
 
         case SDL_MOUSEMOTION:
             SDL_GetMouseState(&m_pos.x, &m_pos.y);
-            break;
-        
-        case SDL_MOUSEBUTTONDOWN:
-            m_pressed = true;
-            if(start->ispointed())
-                AlgorithmManager::StartSearch(map);
-            break;
-        case SDL_MOUSEBUTTONUP:
-            m_pressed = false;
-            break;
-
-        case SDL_KEYDOWN:
-            if(AlgorithmManager::isSearching()) break;
-
-            map->draw_keyb(event.key.keysym.sym, m_pos);
-
-            switch(event.key.keysym.sym)
-            {
-                case SDLK_RETURN:
-                    AlgorithmManager::StartSearch(map);
-                    break;
-                case SDLK_ESCAPE:
-                    map->clear();
-                    break;
-                default:
-                    break;
-            }
-
             break;
 
         default:
