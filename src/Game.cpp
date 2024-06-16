@@ -2,6 +2,7 @@
 #include <Map.h>
 #include <Button.h>
 #include <Text.h>
+#include <SelectionBox.h>
 #include <AlgorithmManager.h>
 
 int Game::Game_Tick = 0;
@@ -9,6 +10,7 @@ SDL_Renderer *Game::renderer = nullptr;
 
 Map *map = nullptr;
 Button *start = nullptr;
+SelectionBox *selection = nullptr;
 
 Game::Game() {}
 Game::~Game() {}
@@ -22,7 +24,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
         flag = SDL_WINDOW_FULLSCREEN;
     }
 
-    if(SDL_Init(SDL_INIT_EVERYTHING) == 0)
+    if(SDL_Init(SDL_INIT_EVERYTHING) == 0 && TTF_Init() == 0)
     {   
         // Create
         window = SDL_CreateWindow(title, xpos, ypos, width, height, flag);
@@ -32,16 +34,21 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
         SDL_SetRenderDrawBlendMode(Game::renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
-        // Other Seettings
-        
-
-
         Running = true;
+    }
+
+    else
+    {
+        std::cout << SDL_GetError() << "\n";
+        Running = false;
+        return;
     }
 
     map = new Map();
     start = new Button();
     start->init("picture/start_button", 820, 730, 40, 15, 4);
+    selection = new SelectionBox();
+    selection->init("FFFFORWA.TTF");
 
     reset();
 
@@ -57,6 +64,7 @@ void Game::update()
 
     map->update(m_pos);
     start->update(&m_pos);
+    selection->update(&m_pos);
 
     // Search
     AlgorithmManager::update(map);
@@ -78,6 +86,9 @@ void Game::render()
 
     //Button
     start->render();
+    
+    //Selection Box;
+    selection->render();
 
     SDL_RenderPresent(renderer);
 }
@@ -94,9 +105,10 @@ void Game::handleEvent()
 {
     SDL_PollEvent(&event);
 
-    // Button Input Handling
+    // Input Handling For Every Object
     start->handleEvent(&event, map);
     map->handleEvent(&event);
+    selection->handleEvent(&event);
 
     switch(event.type)
     {

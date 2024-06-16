@@ -65,7 +65,7 @@ void Map::render_map()
                 
                 // FINAL PATH
                 case PATH:
-                    SDL_SetRenderDrawColor(Game::renderer, 230, 230, 0, 255);
+                    SDL_SetRenderDrawColor(Game::renderer, 200, 200, 0, 255);
                     break;
 
                 default:
@@ -131,6 +131,8 @@ void Map::clear()
 {
 
     std::cout << "Map Cleared!\n";
+
+    AlgorithmManager::unSolved();
 
     sx = sy = ex = ey = -1;
 

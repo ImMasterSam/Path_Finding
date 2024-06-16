@@ -13,13 +13,7 @@ class AlgorithmManager
 {
 
     private:
-
-        enum
-        {
-            BFS,
-            DFS
-        };
-
+        
         static std::vector<SDL_Point> path;
         static void displayPath();
 
@@ -29,6 +23,12 @@ class AlgorithmManager
 
     public:
 
+        enum Algs
+        {
+            BFS,
+            DFS
+        };
+
         static void StartSearch(Map *map);
         static void update(Map *map);
 
@@ -37,6 +37,7 @@ class AlgorithmManager
         static bool isSearching() { return searching; }
 
         static void setPath(std::vector<SDL_Point> p) { path = p; }
+        static void setAlg(Algs a) { currentAlg = a; }
 
 };
 
