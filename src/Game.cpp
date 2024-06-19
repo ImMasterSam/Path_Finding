@@ -4,6 +4,7 @@
 #include <Text.h>
 #include <SelectionBox.h>
 #include <AlgorithmManager.h>
+#include <Analyzer.h>
 
 int Game::Game_Tick = 0;
 SDL_Renderer *Game::renderer = nullptr;
@@ -50,6 +51,8 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     selection = new SelectionBox();
     selection->init("FFFFORWA.TTF");
 
+    Analyzer::init();
+
     reset();
 
 }
@@ -68,6 +71,7 @@ void Game::update()
 
     // Search
     AlgorithmManager::update(map);
+    Analyzer::update();
 
     Game_Tick++;
     //std::cout << m_pressed << "\n";
@@ -89,6 +93,9 @@ void Game::render()
     
     //Selection Box;
     selection->render();
+    
+    //Analyzer
+    Analyzer::render();
 
     SDL_RenderPresent(renderer);
 }

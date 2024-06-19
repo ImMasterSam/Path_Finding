@@ -2,7 +2,7 @@
 
 #include <Game.h>
 #include <Map.h>
-#include <vector>
+#include <Analyzer.h>
 
 #include <BFS.h>
 #include <DFS.h>
@@ -32,9 +32,15 @@ class AlgorithmManager
         static void StartSearch(Map *map);
         static void update(Map *map);
 
-        static void unSolved() { solved = false;path.clear(); }
+        static void unSolved()
+        {
+            solved = false;
+            path.clear();
+            Analyzer::processTime = 0;
+        }
         static void Solved() { solved = true; searching = false; }
         static bool isSearching() { return searching; }
+        static int getPathSize() { return path.size(); }
 
         static void setPath(std::vector<SDL_Point> p) { path = p; }
         static void setAlg(Algs a) { currentAlg = a; }

@@ -1,12 +1,10 @@
 #include <Game.h>
-#include <chrono>
-typedef std::chrono::high_resolution_clock Clock;
 
 Game *game = nullptr;
 
 int main(int argc, char *argv[]){
 
-    const int FPS = 60;
+    const int FPS = 1000000;
     const int FrameDelay = 1000 / FPS;
 
     Uint32 FrameStart;
@@ -18,13 +16,13 @@ int main(int argc, char *argv[]){
     while(game->isRunning())
     {
         FrameStart = SDL_GetTicks();
-        auto ProcessStart = Clock::now();
+        //auto ProcessStart = Clock::now();
 
         game->update();
         game->render();
         game->handleEvent();
 
-        auto ProcessEnd = Clock::now();
+        //auto ProcessEnd = Clock::now();
         //std::cout << "Processing Time -> " << std::chrono::duration_cast<std::chrono::microseconds>(ProcessEnd - ProcessStart).count() << " us \r";
 
         FrameTime = SDL_GetTicks() - FrameStart;

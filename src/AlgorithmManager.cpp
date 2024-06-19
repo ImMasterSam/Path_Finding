@@ -34,7 +34,7 @@ void AlgorithmManager::StartSearch(Map *map)
             break;
 
     }
-
+    
 }
 
 void AlgorithmManager::update(Map *map)
@@ -44,6 +44,8 @@ void AlgorithmManager::update(Map *map)
     
     if(searching)
     {
+        auto ProcessStart = Clock::now();
+
         switch(currentAlg)
         {
             case BFS:
@@ -53,6 +55,9 @@ void AlgorithmManager::update(Map *map)
                 DFS::Search(map);
                 break;
         }
+
+        Analyzer::processTime += std::chrono::duration_cast<std::chrono::microseconds>(Clock::now()-ProcessStart).count();
+
     }
     
 
