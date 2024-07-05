@@ -6,6 +6,7 @@
 
 #include <BFS.h>
 #include <DFS.h>
+#include <Dijkstra.h>
 
 const int dir[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 
@@ -26,7 +27,8 @@ class AlgorithmManager
         enum Algs
         {
             BFS,
-            DFS
+            DFS,
+            Dijkstra
         };
 
         static void StartSearch(Map *map);

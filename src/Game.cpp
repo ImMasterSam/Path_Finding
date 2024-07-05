@@ -45,6 +45,8 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
         return;
     }
 
+    SDL_SetWindowIcon(window, IMG_Load("picture/ICON.svg"));
+
     map = new Map();
     start = new Button();
     start->init("picture/start_button", 820, 730, 40, 15, 4);

@@ -4,6 +4,7 @@
 void SelectionBox::init(const char *filename)
 {   
 
+    std::cout << "Selection Box Start Initializing...\n";
     
     font = TTF_OpenFont(filename, fontSize);
 
@@ -15,12 +16,14 @@ void SelectionBox::init(const char *filename)
         
         int len = Names[i].size();
 
-        dst[i].x = 900 - len*(fontSize/2);
+        dst[i].x = 900 - len*(fontSize/4);
         dst[i].y = 25;
-        dst[i].w = len * fontSize;
+        dst[i].w = len * fontSize/2;
         dst[i].h = fontSize;
         load(Names[i]);
     }
+
+    std::cout << "Selection Box Initialized!\n";
 
 }
 
@@ -50,6 +53,9 @@ void SelectionBox::update(SDL_Rect *mouse)
                 break;
             case 1:
                 AlgorithmManager::setAlg(AlgorithmManager::Algs::DFS);
+                break;
+            case 2:
+                AlgorithmManager::setAlg(AlgorithmManager::Algs::Dijkstra);
                 break;
             
             default:

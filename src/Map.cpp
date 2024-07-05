@@ -116,6 +116,7 @@ void Map::setup()
 {
 
     AlgorithmManager::unSolved();
+    Analyzer::processTime = 0;
 
     for(int i=0;i<40;i++)
     {
@@ -161,6 +162,7 @@ void Map::handleEvent(SDL_Event *event)
             break;
 
         case SDL_MOUSEWHEEL:
+            if(m_pos.x == -1 || m_pos.y == -1) break;
             if(event->wheel.y>0)
                 draw_type = (draw_type + 1) % 3;
             else if(event->wheel.y<0)
@@ -175,6 +177,7 @@ void Map::handleEvent(SDL_Event *event)
             switch(event->key.keysym.sym)
             {
                 case SDLK_RETURN:
+                    setup();
                     AlgorithmManager::StartSearch(this);
                     break;
                 case SDLK_ESCAPE:

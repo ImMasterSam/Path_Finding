@@ -5,6 +5,7 @@
 #include <SDL_ttf.h>
 #include <iostream>
 #include <vector>
+#include <queue>
 #include <chrono>
 
 typedef std::chrono::high_resolution_clock Clock;

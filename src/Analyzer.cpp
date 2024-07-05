@@ -32,26 +32,10 @@ void Analyzer::update()
     {   
         //std::cout << "ProcessTime: " << processTime << "\n";
 
-        long long temp = processTime;
-        time_word = " ms";
-        while(temp){
-
-            if(time_word.size() == 6){
-
-                time_word = "." + time_word;
-                continue;
-
-            }
-
-            time_word = (char)(temp%10 + '0') + time_word;
-            temp /= 10;
-
-        }
-        
+        std::string temp = std::to_string(processTime/1000.0);
+        time->set_word(temp.substr(0, temp.size()-3) + " ms");
 
     }
-
-    time->set_word(time_word);
 
     //std::cout << "Path Size: " << AlgorithmManager::getPathSize() << "\n";
 
@@ -59,15 +43,8 @@ void Analyzer::update()
         pathlength->set_word("#######");
     else
     {
-        long long temp = AlgorithmManager::getPathSize();
-        pathlength_word = "";
-        while(temp){
-
-            pathlength_word = (char)(temp%10 + '0') + pathlength_word;
-            temp /= 10;
-
-        }
-        pathlength->set_word(pathlength_word);
+        std::string temp = std::to_string(AlgorithmManager::getPathSize());
+        pathlength->set_word(temp);
     }
 
 }

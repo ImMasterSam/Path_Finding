@@ -32,6 +32,9 @@ void AlgorithmManager::StartSearch(Map *map)
         case DFS:
             DFS::Setup(map);
             break;
+        case Dijkstra:
+            Dijkstra::Setup(map);
+            break;
 
     }
     
@@ -53,6 +56,9 @@ void AlgorithmManager::update(Map *map)
                 break;
             case DFS:
                 DFS::Search(map);
+                break;
+            case Dijkstra:
+                Dijkstra::Search(map);
                 break;
         }
 

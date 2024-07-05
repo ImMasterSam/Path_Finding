@@ -1,7 +1,6 @@
 #pragma once
 
 #include <AlgorithmManager.h>
-#include <vector>
 #include <Map.h>
 
 class DFS

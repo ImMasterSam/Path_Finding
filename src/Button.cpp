@@ -57,7 +57,11 @@ void Button::handleEvent(SDL_Event *event, Map *map)
     {
         case SDL_MOUSEBUTTONDOWN:
             if(ispointed())
+            {   
+                map->setup();
                 AlgorithmManager::StartSearch(map);
+            }
+                
             else
                 return;
 
