@@ -57,6 +57,9 @@ void SelectionBox::update(SDL_Rect *mouse)
             case 2:
                 AlgorithmManager::setAlg(AlgorithmManager::Algs::Dijkstra);
                 break;
+            case 3:
+                AlgorithmManager::setAlg(AlgorithmManager::Algs::Astar);
+                break;
             
             default:
                 break;

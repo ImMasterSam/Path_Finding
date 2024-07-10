@@ -7,6 +7,7 @@
 #include <BFS.h>
 #include <DFS.h>
 #include <Dijkstra.h>
+#include <Astar.h>
 
 const int dir[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 
@@ -28,7 +29,8 @@ class AlgorithmManager
         {
             BFS,
             DFS,
-            Dijkstra
+            Dijkstra,
+            Astar
         };
 
         static void StartSearch(Map *map);

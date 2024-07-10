@@ -7,14 +7,14 @@ class SelectionBox
 
     private:
         
-        const int AlgsNum = 3;
+        const int AlgsNum = 4;
         const int maxLen = 5;
-        std::string Names[3] = {"BFS", "DFS", "Dijkstra"};
+        std::string Names[4] = {"BFS", "DFS", "Dijkstra", "A *"};
         std::vector<SDL_Texture*> texArray;
 
         int fontSize = 30;
         SDL_Color fontColor = {255, 255, 255, 255};
-        SDL_Rect dst[3];
+        SDL_Rect dst[4];
         TTF_Font *font;
 
         SDL_Rect m_pos;

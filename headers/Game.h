@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <cmath>
 #include <chrono>
 
 typedef std::chrono::high_resolution_clock Clock;

@@ -35,6 +35,9 @@ void AlgorithmManager::StartSearch(Map *map)
         case Dijkstra:
             Dijkstra::Setup(map);
             break;
+        case Astar:
+            Astar::Setup(map);
+            break;
 
     }
     
@@ -59,6 +62,9 @@ void AlgorithmManager::update(Map *map)
                 break;
             case Dijkstra:
                 Dijkstra::Search(map);
+                break;
+            case Astar:
+                Astar::Search(map);
                 break;
         }
 
